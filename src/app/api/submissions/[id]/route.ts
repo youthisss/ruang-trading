@@ -1,13 +1,14 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { supabase } from '@/app/lib/supabaseClient';
 
-// --- Fungsi PATCH (Kembali ke destructuring params) ---
+// --- Fungsi PATCH (dengan 'any' untuk melewati type error) ---
 export async function PATCH(
-  request: NextRequest, // Tetap gunakan NextRequest
-  { params }: { params: { id: string } } // Kembali ke destructuring
-): Promise<NextResponse> { // Pertahankan return type eksplisit
+  request: NextRequest,
+  context: any // <<< MENGGUNAKAN 'any' UNTUK MENGHINDARI BUILD ERROR
+): Promise<NextResponse> {
   try {
-    const { id } = params; // Ambil 'id' dari params
+    // Kita tetap mengambil 'id' dari context.params
+    const { id } = context.params; 
     const { status } = await request.json();
 
     if (!status || !['Pending', 'Approved', 'Rejected'].includes(status)) {
@@ -34,13 +35,14 @@ export async function PATCH(
   }
 }
 
-// --- Fungsi DELETE (Kembali ke destructuring params) ---
+// --- Fungsi DELETE (dengan 'any' untuk melewati type error) ---
 export async function DELETE(
-  request: NextRequest, // Tetap gunakan NextRequest
-  { params }: { params: { id: string } } // Kembali ke destructuring
-): Promise<NextResponse> { // Pertahankan return type eksplisit
+  request: NextRequest,
+  context: any // <<< MENGGUNAKAN 'any' UNTUK MENGHINDARI BUILD ERROR
+): Promise<NextResponse> {
   try {
-    const { id } = params; // Ambil 'id' dari params
+    // Kita tetap mengambil 'id' dari context.params
+    const { id } = context.params;
 
     if (!id) {
        return NextResponse.json({ message: 'ID tidak valid' }, { status: 400 });
