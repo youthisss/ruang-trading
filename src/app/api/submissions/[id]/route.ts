@@ -1,14 +1,14 @@
-import { NextResponse, type NextRequest } from 'next/server'; // <<< Import NextRequest
-import { supabase } from '@/app/lib/supabaseClient'; 
+import { NextResponse, type NextRequest } from 'next/server';
+import { supabase } from '@/app/lib/supabaseClient';
 
-// --- Fungsi PATCH (Signature Diperbaiki) ---
+// --- Fungsi PATCH (Kembali ke destructuring params) ---
 export async function PATCH(
-  request: NextRequest, // <<< PASTIKAN NextRequest
-  { params }: { params: { id: string } } 
-): Promise<NextResponse> { // <<< Tambahkan tipe return eksplisit
+  request: NextRequest, // Tetap gunakan NextRequest
+  { params }: { params: { id: string } } // Kembali ke destructuring
+): Promise<NextResponse> { // Pertahankan return type eksplisit
   try {
-    const { id } = params; 
-    const { status } = await request.json(); 
+    const { id } = params; // Ambil 'id' dari params
+    const { status } = await request.json();
 
     if (!status || !['Pending', 'Approved', 'Rejected'].includes(status)) {
       return NextResponse.json({ message: 'Status tidak valid' }, { status: 400 });
@@ -16,9 +16,9 @@ export async function PATCH(
 
     const { data, error } = await supabase
       .from('submissions')
-      .update({ status: status }) 
-      .eq('id', id) 
-      .select(); 
+      .update({ status: status })
+      .eq('id', id)
+      .select();
 
     if (error) { throw error; }
     if (!data || data.length === 0) {
@@ -29,18 +29,18 @@ export async function PATCH(
   } catch (error: unknown) {
     let errorMessage = 'Error tidak diketahui';
     if (error instanceof Error) { errorMessage = error.message; }
-    console.error("API PATCH Error:", error); 
+    console.error("API PATCH Error:", error);
     return NextResponse.json({ message: 'Gagal memperbarui status', error: errorMessage }, { status: 500 });
   }
 }
 
-// --- Fungsi DELETE (Signature Diperbaiki) ---
+// --- Fungsi DELETE (Kembali ke destructuring params) ---
 export async function DELETE(
-  request: NextRequest, // <<< PASTIKAN NextRequest
-  { params }: { params: { id: string } } 
-): Promise<NextResponse> { // <<< Tambahkan tipe return eksplisit
+  request: NextRequest, // Tetap gunakan NextRequest
+  { params }: { params: { id: string } } // Kembali ke destructuring
+): Promise<NextResponse> { // Pertahankan return type eksplisit
   try {
-    const { id } = params; 
+    const { id } = params; // Ambil 'id' dari params
 
     if (!id) {
        return NextResponse.json({ message: 'ID tidak valid' }, { status: 400 });
@@ -48,21 +48,20 @@ export async function DELETE(
 
     const { error } = await supabase
       .from('submissions')
-      .delete() 
-      .eq('id', id); 
+      .delete()
+      .eq('id', id);
 
-    if (error) { 
+    if (error) {
         console.error("Supabase delete error:", error);
-        throw error; 
+        throw error;
     }
 
-    // Ubah cara return 204 agar eksplisit NextResponse
-    return new NextResponse(null, { status: 204 }); 
+    return new NextResponse(null, { status: 204 });
 
   } catch (error: unknown) {
     let errorMessage = 'Error tidak diketahui';
     if (error instanceof Error) { errorMessage = error.message; }
-    console.error("API DELETE Error:", error); 
+    console.error("API DELETE Error:", error);
     return NextResponse.json({ message: 'Gagal menghapus data', error: errorMessage }, { status: 500 });
   }
 }
