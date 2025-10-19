@@ -1,11 +1,11 @@
 import { NextResponse, type NextRequest } from 'next/server'; // <<< Import NextRequest
-import { supabase } from '@/app/lib/supabaseClient'; // Sesuaikan path jika perlu
+import { supabase } from '@/app/lib/supabaseClient'; 
 
 // --- Fungsi PATCH (Signature Diperbaiki) ---
 export async function PATCH(
-  request: NextRequest, // <<< Gunakan NextRequest
-  { params }: { params: { id: string } } // Signature ini BENAR
-) {
+  request: NextRequest, // <<< PASTIKAN NextRequest
+  { params }: { params: { id: string } } 
+): Promise<NextResponse> { // <<< Tambahkan tipe return eksplisit
   try {
     const { id } = params; 
     const { status } = await request.json(); 
@@ -36,9 +36,9 @@ export async function PATCH(
 
 // --- Fungsi DELETE (Signature Diperbaiki) ---
 export async function DELETE(
-  request: NextRequest, // <<< Gunakan NextRequest (meskipun tidak dipakai)
-  { params }: { params: { id: string } } // Signature ini BENAR
-) {
+  request: NextRequest, // <<< PASTIKAN NextRequest
+  { params }: { params: { id: string } } 
+): Promise<NextResponse> { // <<< Tambahkan tipe return eksplisit
   try {
     const { id } = params; 
 
@@ -56,6 +56,7 @@ export async function DELETE(
         throw error; 
     }
 
+    // Ubah cara return 204 agar eksplisit NextResponse
     return new NextResponse(null, { status: 204 }); 
 
   } catch (error: unknown) {
