@@ -34,7 +34,7 @@ const KonsultanEdukasiPage = () => {
                             
                             {/* Nama Konsultan */}
                             <h3 className="text-2xl text-gray-900 font-bold">
-                                Sigit Istiawan
+                                Sigit I Istiawan
                             </h3>
                             
                             {/* Tombol Chat Sekarang */}

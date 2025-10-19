@@ -10,7 +10,7 @@ const brokerPage = () => {
                     
                     {/* Judul: Font mobile (3xl) dan underline yang lebih wajar */}
                     <h1 className="text-3xl font-bold text-gray-900 tracking-tight 
-                                 underline decoration-6 decoration-orange-600 
+                                 underline decoration-4 decoration-orange-600 
                                  sm:text-4xl lg:text-5xl lg:underline-offset-30"> {/* <<< Styling mobile diutamakan, styling PC (lg:) tetap ada */}
                         Daftar Broker Dupoin Indonesia
                     </h1>
