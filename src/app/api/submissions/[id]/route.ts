@@ -1,9 +1,10 @@
-import { NextResponse } from 'next/server';
-import { supabase } from '@/app/lib/supabaseClient';
+import { NextResponse, type NextRequest } from 'next/server'; // <<< Import NextRequest
+import { supabase } from '@/app/lib/supabaseClient'; // Sesuaikan path jika perlu
 
+// --- Fungsi PATCH (Signature Diperbaiki) ---
 export async function PATCH(
-  request: Request,
-  { params }: { params: { id: string } }
+  request: NextRequest, // <<< Gunakan NextRequest
+  { params }: { params: { id: string } } // Signature ini BENAR
 ) {
   try {
     const { id } = params; 
@@ -33,15 +34,16 @@ export async function PATCH(
   }
 }
 
+// --- Fungsi DELETE (Signature Diperbaiki) ---
 export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } } 
+  request: NextRequest, // <<< Gunakan NextRequest (meskipun tidak dipakai)
+  { params }: { params: { id: string } } // Signature ini BENAR
 ) {
   try {
     const { id } = params; 
 
     if (!id) {
-      return NextResponse.json({ message: 'ID tidak valid' }, { status: 400 });
+       return NextResponse.json({ message: 'ID tidak valid' }, { status: 400 });
     }
 
     const { error } = await supabase
