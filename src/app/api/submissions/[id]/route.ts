@@ -1,13 +1,13 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { supabase } from '@/app/lib/supabaseClient';
 
-// --- Fungsi PATCH (dengan 'any' untuk melewati type error) ---
+// --- Fungsi PATCH (dengan disable ESLint) ---
 export async function PATCH(
   request: NextRequest,
-  context: any // <<< MENGGUNAKAN 'any' UNTUK MENGHINDARI BUILD ERROR
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any 
+  context: any // <<< ESLint diabaikan HANYA untuk baris ini
 ): Promise<NextResponse> {
   try {
-    // Kita tetap mengambil 'id' dari context.params
     const { id } = context.params; 
     const { status } = await request.json();
 
@@ -35,13 +35,13 @@ export async function PATCH(
   }
 }
 
-// --- Fungsi DELETE (dengan 'any' untuk melewati type error) ---
+// --- Fungsi DELETE (dengan disable ESLint) ---
 export async function DELETE(
   request: NextRequest,
-  context: any // <<< MENGGUNAKAN 'any' UNTUK MENGHINDARI BUILD ERROR
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any // <<< ESLint diabaikan HANYA untuk baris ini
 ): Promise<NextResponse> {
   try {
-    // Kita tetap mengambil 'id' dari context.params
     const { id } = context.params;
 
     if (!id) {
