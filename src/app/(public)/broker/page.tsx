@@ -1,33 +1,37 @@
 const brokerPage = () => {
     return (
-        // Menggunakan bg-gray-50 untuk tampilan lebih cerah
+        // Menggunakan bg-gray-50 dan min-h-screen sebagai default (mobile)
         <main className="bg-gray-50 min-h-screen">
-            {/* Mengurangi padding vertikal (py) di mobile dan membuatnya responsif */}
-            <div className="container mx-auto px-4 py-20 sm:py-24 lg:py-32">
-                <div className="text-center mb-12 sm:mb-16">
+            
+            {/* Container: Padding Vertikal di Mobile (py-20) dan Horizontal (px-4) */}
+            <div className="container mx-auto px-4 py-20 lg:mt-15"> {/* <<< Menggunakan py-20 untuk mobile, lg:mt-15 (punya Anda) tetap ada */}
+                
+                <div className="text-center mb-8"> {/* Mengurangi mb-12 di mobile */}
                     
-                    {/* Judul: Font responsif, underline yang lebih tebal */}
-                    <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight 
-                                 sm:text-4xl lg:text-5xl 
-                                 underline underline-offset-8 decoration-6 decoration-orange-500">
+                    {/* Judul: Font mobile (3xl) dan underline yang lebih wajar */}
+                    <h1 className="text-3xl font-bold text-gray-900 tracking-tight 
+                                 underline decoration-6 decoration-orange-600 
+                                 sm:text-4xl lg:text-5xl lg:underline-offset-30"> {/* <<< Styling mobile diutamakan, styling PC (lg:) tetap ada */}
                         Daftar Broker Dupoin Indonesia
                     </h1>
-
-                    {/* Deskripsi: Menggunakan mt-4 yang standar */}
-                    <p className="mt-4 max-w-4xl mx-auto text-base sm:text-lg text-gray-600">
+                    
+                    {/* Deskripsi: Menggunakan mt-5 sebagai default (mobile) */}
+                    <p className="mt-5 max-w-4xl mx-auto text-base text-gray-600 
+                              sm:text-lg lg:mt-15"> {/* <<< Menggunakan mt-5 (mobile), mt-15 (punya Anda) tetap ada */}
                         Broker Dupoin Futures Indonesia berlisensi penuh dan diatur oleh BAPPEBTI dan anggota JFX dan KBI.
                     </p>
                 </div>
-
+                
                 {/* Tombol Daftar Sekarang */}
-                <div className="mt-10 sm:mt-12 flex justify-center">
+                <div className="mt-10 flex justify-center">
                     <a 
                         href='https://i.dupoin.vip/rIwYumck7' 
-                        // Lebar Penuh di mobile (w-full) tapi dibatasi di desktop (max-w-sm)
+                        // Wajib full-width di mobile, lalu dibatasi di PC
                         className="w-full max-w-sm bg-blue-600 text-center text-white 
                                    rounded-lg px-6 py-3 text-xl font-bold 
-                                   hover:bg-blue-700 transition scale-105 ease-in-out duration-300
-                                   sm:text-2xl"
+                                   hover:bg-blue-700 transition duration-300 
+                                   sm:text-2xl 
+                                   lg:max-w-md lg:scale-110 lg:ease-in-out lg:delay-150 lg:duration-150" 
                     >
                         Daftar Sekarang
                     </a>
