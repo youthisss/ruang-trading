@@ -57,7 +57,7 @@ const Navbar = () => {
                         </ul>
                     </nav>
                     <div className="flex items-right px-4 gap-3">
-                        <button onClick={openModal} className="flex items-center text-white font-bold px-5 py-3 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors duration-300">
+                        <button onClick={openModal} className="flex items-center text-white font-bold px-5 py-3 cursor-pointer bg-blue-600 rounded-full hover:bg-blue-700 transition-colors duration-300">
                             Join Sekarang
                         </button>
                         {/* 4. Link eksternal (WA) tetap pakai <a> */}
