@@ -29,15 +29,15 @@ const Navbar = () => {
             <div className="container mx-auto">
                 <div className="flex items-center justify-between relative">
                     <div className="px-4">
-                        <a href="/#Home" className="block py-4">
+                        <link href="/#Home" className="block py-4">
                             <Image src="/logo-rt.png" alt="Logo Ruang Trading" width={100} height={10} />
-                        </a>
+                        </link>
                     </div>
                     <nav>
                         <ul className="flex text-[17px]">
-                            <li className="group"><a href="/#Home" className=" text-black py-2 mx-5 flex font-semibold hover:underline underline-offset-8 decoration-orange-600 decoration-2">home</a></li>
-                            <li className="group"><a href="/konsultan-edukasi" className=" text-black py-2 mx-5 flex font-semibold hover:underline underline-offset-8 decoration-orange-600 decoration-2">konsultan Edukasi</a></li>
-                            <li className="group"><a href="/#Layanan" className=" text-black py-2 mx-5 flex font-semibold hover:underline underline-offset-8 decoration-orange-600 decoration-2">komunitas</a></li>
+                            <li className="group"><link href="/#Home" className=" text-black py-2 mx-5 flex font-semibold hover:underline underline-offset-8 decoration-orange-600 decoration-2">home</link></li>
+                            <li className="group"><link href="/konsultan-edukasi" className=" text-black py-2 mx-5 flex font-semibold hover:underline underline-offset-8 decoration-orange-600 decoration-2">konsultan Edukasi</link></li>
+                            <li className="group"><link href="/#Layanan" className=" text-black py-2 mx-5 flex font-semibold hover:underline underline-offset-8 decoration-orange-600 decoration-2">komunitas</link></li>
                         </ul>
                     </nav>
                     <div className="flex items-right px-4 gap-3">
