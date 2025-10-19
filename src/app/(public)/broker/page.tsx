@@ -4,7 +4,7 @@ const brokerPage = () => {
         <main className="bg-gray-50 min-h-screen">
             
             {/* Container: Padding Vertikal di Mobile (py-20) dan Horizontal (px-4) */}
-            <div className="container mx-auto px-4 py-20 lg:mt-15"> {/* <<< Menggunakan py-20 untuk mobile, lg:mt-15 (punya Anda) tetap ada */}
+            <div className="container mx-auto px-4 py-20 mt-15"> {/* <<< Menggunakan py-20 untuk mobile, lg:mt-15 (punya Anda) tetap ada */}
                 
                 <div className="text-center mb-8"> {/* Mengurangi mb-12 di mobile */}
                     
