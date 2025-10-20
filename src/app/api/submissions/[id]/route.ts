@@ -1,14 +1,18 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createSupabaseClientForServer } from '@/app/lib/supabaseServer';
 
+type Params = {
+  id: string;
+};
+
 // --- Fungsi PATCH (dengan disable ESLint) ---
 export async function PATCH(
   request: NextRequest,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any 
-  context: unknown // <<< ESLint diabaikan HANYA untuk baris ini
+  { params }: { params: Promise<Params> } // <<< ESLint diabaikan HANYA untuk baris ini
 ): Promise<NextResponse> {
   try {
-    const { id } = await context.params; 
+    const { id } = await params; 
     const { status } = await request.json();
 
     if (!status || !['Pending', 'Approved', 'Rejected'].includes(status)) {
@@ -40,10 +44,10 @@ export async function PATCH(
 // --- Fungsi DELETE (dengan disable ESLint) ---
 export async function DELETE(
   request: NextRequest,
-  context: unknown
+  { params }: { params: Promise<Params> }
 ): Promise<NextResponse> {
   try {
-    const { id } = context.params;
+    const { id } = await params;
 
     if (!id) {
        return NextResponse.json({ message: 'ID tidak valid' }, { status: 400 });
