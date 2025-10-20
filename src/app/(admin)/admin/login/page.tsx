@@ -32,7 +32,15 @@ export default function LoginPage() {
       router.push('/admin/dashboard');
 
     } catch (err: unknown) {
-      setError(err.message);
+      let errorMessage = 'An unexpected error occurred.';
+
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (typeof err === 'string') {
+        errorMessage = err;
+      }
+  
+      setError(errorMessage);
     }
   };
 
