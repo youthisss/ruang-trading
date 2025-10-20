@@ -5,7 +5,7 @@ import { createSupabaseClientForServer } from '@/app/lib/supabaseServer';
 export async function PATCH(
   request: NextRequest,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any 
-  context: any // <<< ESLint diabaikan HANYA untuk baris ini
+  context: unknown // <<< ESLint diabaikan HANYA untuk baris ini
 ): Promise<NextResponse> {
   try {
     const { id } = await context.params; 
@@ -40,7 +40,7 @@ export async function PATCH(
 // --- Fungsi DELETE (dengan disable ESLint) ---
 export async function DELETE(
   request: NextRequest,
-  context: any
+  context: unknown
 ): Promise<NextResponse> {
   try {
     const { id } = context.params;
