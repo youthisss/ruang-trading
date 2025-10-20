@@ -48,6 +48,8 @@ const HomePage = () => {
                 Pada 2016, saya mulai aktif membagikan pengalaman dan edukasi melalui media sosial dan komunitas trader lokal. saya percaya bahwa trading bukan soal cepat kaya, melainkan soal konsistensi, pembelajaran, dan pengendalian diri.
                 Kini, dengan lebih dari satu dekade pengalaman, saya dikenal sebagai trader yang mengedepankan pendekatan teknikal dan fundamental yang seimbang. saya juga aktif menjadi mentor bagi trader pemula, membantu mereka membangun mindset dan strategi yang sehat.
               </p>
+              <p className="mt-3 font-semibold text-xl text-blue-600 tracking-tight">&ldquo;Trading bukan tentang menang besar, tapi tentang bertahan lama&ldquo;</p>
+                <p className="mt-3 font-semibold text-xl text-blue-600 tracking-tight">&ldquo;Financial freedom dimulai dari keputusan kecil yang konsisten&ldquo;</p>
             </div>
           </div>
         </div>
