@@ -5,13 +5,13 @@ export async function createSupabaseClientForServer() {
   const cookieStore = await cookies();
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseServiceRoleKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY;
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
     console.error("Supabase URL or Service Role Key was not found in env.");
     console.error("NEXT_PUBLIC_SUPABASE_URL:", supabaseUrl ? "SET" : "MISSING");
-    console.error("NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY:", supabaseServiceRoleKey ? "SET" : "MISSING");
-    throw new Error("Konfigurasi Supabase tidak lengkap. Cek variabel lingkungan NEXT_PUBLIC_SUPABASE_URL dan NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY.");
+    console.error("SUPABASE_SERVICE_ROLE_KEY:", supabaseServiceRoleKey ? "SET" : "MISSING");
+    throw new Error("Konfigurasi Supabase tidak lengkap. Cek variabel lingkungan NEXT_PUBLIC_SUPABASE_URL dan SUPABASE_SERVICE_ROLE_KEY.");
   }
 
   return createServerClient(
@@ -27,14 +27,14 @@ export async function createSupabaseClientForServer() {
           try {
             await cookieStore.set({ name, value, ...options });
           } catch (error) {
-            console.error(error.message)
+            console.error(error instanceof Error ? error.message : 'Failed to set cookie');
           }
         },
         remove: async (name: string, options: CookieOptions) => {
           try {
             await cookieStore.set({ name, value: '', ...options });
           } catch (error) {
-            console.error(error.message)
+            console.error(error instanceof Error ? error.message : 'Failed to remove cookie');
           }
         },
       },
@@ -45,11 +45,9 @@ export async function createSupabaseClientForServer() {
 export async function createSupabaseAuthClientForServer() {
   const cookieStore = await cookies();
 
-  // get the existing env variable
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    // validate the env 
   if (!supabaseUrl || !supabaseAnonKey) {
     console.error("Supabase URL atau Anon Key tidak ditemukan di environment variables untuk auth.");
     console.error("NEXT_PUBLIC_SUPABASE_URL:", supabaseUrl ? "SET" : "MISSING");
@@ -70,14 +68,14 @@ export async function createSupabaseAuthClientForServer() {
           try {
             await cookieStore.set({ name, value, ...options });
           } catch (error) {
-            console.error(error.message)
+            console.error(error instanceof Error ? error.message : 'Failed to set cookie');
           }
         },
         remove: async (name: string, options: CookieOptions) => {
           try {
             await cookieStore.set({ name, value: '', ...options });
           } catch (error) {
-            console.error(error.message)
+            console.error(error instanceof Error ? error.message : 'Failed to remove cookie');
           }
         },
       },
