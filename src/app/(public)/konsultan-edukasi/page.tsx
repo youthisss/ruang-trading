@@ -6,7 +6,7 @@ const KonsultanEdukasiPage = () => {
         <div className="absolute inset-0 z-[-1] bg-[url('/bg-broker.jpg')] bg-cover bg-fixed bg-center brightness-30"></div>
             <div className="pt-40 pb-32 bg-transparent flex flex-col justify-center items-center min-h-screen">
                 
-                <h1 className="text-center text-5xl mb-10 font-bold text-white underline underline-offset-8 decoration-4 decoration-orange-600">
+                <h1 className="text-center text-5xl mb-9 font-bold text-white underline underline-offset-8 decoration-4 decoration-orange-600">
                     Konsultan Edukasi
                 </h1>
                 <h2 className="text-center text-xl font-bold text-gray-400 mb-10">
