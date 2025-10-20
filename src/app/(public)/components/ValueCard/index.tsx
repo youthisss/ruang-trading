@@ -18,7 +18,6 @@ const plans = [
   },
   {
     name: 'Komunitas VIP',
-    price: 'Rp 2.000.000',
     isRecommended: true,
     features: [
       { text: 'Semua di Paket Gratis', value: 2150000 },
@@ -54,12 +53,6 @@ const PlanCard = ({ plan, onButtonClick }: { plan: typeof plans[0], onButtonClic
         className="absolute inset-0 z-[0] bg-cover bg-center opacity-10"
         style={{ backgroundImage: "url('/bg-valuecards.jpg')" }}
       ></div>
-
-      {plan.isRecommended && (
-        <div className="bg-blue-600 text-white text-center font-bold py-1 px-4 rounded-t-lg -mt-8 -mx-8 mb-4">
-          Paling Populer
-        </div>
-      )}
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-white tracking-wide">{plan.name}</h1>
         <p className="text-md font-semibold text-blue-600 tracking-widest mt-2">
@@ -72,15 +65,19 @@ const PlanCard = ({ plan, onButtonClick }: { plan: typeof plans[0], onButtonClic
           <li key={index} className="flex items-center text-gray-300 text-base">
             <CheckIcon />
             <span className="flex-grow">{feature.text}</span>
-            <span className="text-base text-gray-400 line-through">{formatRupiah(feature.value)}</span>
+            {plan.name !== 'Komunitas VIP' && (
+              <span className="text-base text-gray-400 line-through">{formatRupiah(feature.value)}</span>
+            )}
           </li>
         ))}
       </ul>
       <hr className="my-6 border-gray-600" />
       <div className="text-center mt-auto">
-        <p className={`text-lg font-semibold text-gray-400 ${plan.name === 'Komunitas Gratis' ? 'line-through' : ''}`}>
-          Total Value : {formatRupiah(totalValue)}
-        </p>
+        {plan.name !== 'Komunitas VIP' && (
+          <p className={`text-lg font-semibold text-gray-400 ${plan.name === 'Komunitas Gratis' ? 'line-through' : ''}`}>
+            Total Value : {formatRupiah(totalValue)}
+          </p>
+        )}
         <p className={`text-4xl font-bold mb-5 ${plan.price === '100% GRATIS' ? 'text-blue-600' : 'text-blue-600'}`}>
           {plan.price}
         </p>
