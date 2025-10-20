@@ -100,7 +100,7 @@ const ValueCard = () => {
     if (action === 'openModal') {
       openModal();
     } else if (action === 'whatsapp') {
-      window.open('https://wa.me/6285156125677', '_blank');
+      window.open('https://wa.me/6282110211821', '_blank');
     }
   };
 
