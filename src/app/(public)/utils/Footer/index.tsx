@@ -9,6 +9,7 @@ const Footer = () =>{
                     <Link href="#Home" className="block">
                         <Image alt="logoFooter" src='/logo-rt.png' width={150} height={10}/>
                     </Link>
+                    <p className="text-gray-400 font-semibold mb-5 text-xl">&ldquo;Your Partner in Financial Freedom&ldquo;</p>
                     <div className="mt-4 h-px w-48 bg-gray-400"></div>
                     <h1 className="pt-8 font-semibold text-lg sm:text-xl text-gray-400">Social Media</h1>
                     <a href="https://www.instagram.com/sigit.i.i?igsh=cTE2czl4bWczNzhp" target="_blank" rel="noopener noreferrer" className="mt-5">
