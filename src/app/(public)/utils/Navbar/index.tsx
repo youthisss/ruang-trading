@@ -54,6 +54,11 @@ const Navbar = () => {
                                     </Link>
                                 </li>
                                 <li className="group">
+                                    <Link href="/broker" className="text-black py-2 mx-5 flex font-semibold group-hover:text-orange-600">
+                                        Broker
+                                    </Link>
+                                </li>
+                                <li className="group">
                                     <Link href="/konsultan-edukasi" className="text-black py-2 mx-5 flex font-semibold group-hover:text-orange-600">
                                         Konsultan Edukasi
                                     </Link>
@@ -61,11 +66,6 @@ const Navbar = () => {
                                 <li className="group">
                                     <Link href="/#Layanan" className="text-black py-2 mx-5 flex font-semibold group-hover:text-orange-600">
                                         Komunitas
-                                    </Link>
-                                </li>
-                                <li className="group">
-                                    <Link href="/broker" className="text-black py-2 mx-5 flex font-semibold group-hover:text-orange-600">
-                                        Broker
                                     </Link>
                                 </li>
                             </ul>
