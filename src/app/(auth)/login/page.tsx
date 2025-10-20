@@ -3,6 +3,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -31,6 +32,7 @@ export default function LoginPage() {
       // Jika login berhasil, redirect ke dashboard
       router.push('/admin/dashboard');
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       setError(err.message);
     }
@@ -39,9 +41,10 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Admin Login Page
+        <div className='flex flex-col items-center'>
+          <Image alt="logoFooter" src='/logo-rt.png' width={150} height={10}/>
+          <h2 className="mt-5 text-center text-3xl font-bold text-gray-600">
+            ADMIN LOGIN PAGE
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>

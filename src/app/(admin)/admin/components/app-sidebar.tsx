@@ -26,7 +26,7 @@ const data = {
   secondary: [
     {
       title: "Logout",
-      url: "/logout",
+      url: "/login",
       icon: LogOut,
     },
   ],

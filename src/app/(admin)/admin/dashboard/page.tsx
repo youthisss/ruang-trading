@@ -50,7 +50,7 @@ export default function DashboardPage() {
         const response = await fetch('/api/users')
         if (response.status === 401) {
           // Redirect to Admin login page
-          router.push('/admin/login');
+          router.push('/login');
           return;
         }
         if (!response.ok) throw new Error('Gagal mengambil data')

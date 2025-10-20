@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createSupabaseAuthClientForServer } from '@/app/lib/supabaseServer';
 
-export async function POST(request: Request) {
+export async function POST(_request: Request) {
   try {
     const supabase = await createSupabaseAuthClientForServer(); // Gunakan ANON_KEY untuk auth
 

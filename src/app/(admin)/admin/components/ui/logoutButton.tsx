@@ -14,7 +14,7 @@ export default function LogoutButton() {
 
       if (response.ok) {
         // Redirect to login page
-        router.push('/admin/login');
+        router.push('/login');
       }
     } catch (error) {
       console.error('Logout failed:', error);

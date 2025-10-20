@@ -4,10 +4,11 @@ import { createSupabaseClientForServer } from '@/app/lib/supabaseServer';
 // --- Fungsi PATCH (dengan disable ESLint) ---
 export async function PATCH(
   request: NextRequest,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   context: any // <<< ESLint diabaikan HANYA untuk baris ini
 ): Promise<NextResponse> {
   try {
+    // 'await' TIDAK dihapus sesuai instruksi
     const { id } = await context.params; 
     const { status } = await request.json();
 
@@ -40,10 +41,13 @@ export async function PATCH(
 // --- Fungsi DELETE (dengan disable ESLint) ---
 export async function DELETE(
   request: NextRequest,
-  context: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  context: any // <<< ESLint diabaikan HANYA untuk baris ini
 ): Promise<NextResponse> {
   try {
-    const { id } = context.params;
+    // 'await' TIDAK dihapus dari context.params jika memang ada
+    // (di kode Anda sebelumnya tidak ada await di sini, jadi saya biarkan)
+    const { id } = context.params; 
 
     if (!id) {
        return NextResponse.json({ message: 'ID tidak valid' }, { status: 400 });
