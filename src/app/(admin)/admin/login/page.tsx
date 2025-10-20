@@ -31,7 +31,7 @@ export default function LoginPage() {
       // Jika login berhasil, redirect ke dashboard
       router.push('/admin/dashboard');
 
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message);
     }
   };
