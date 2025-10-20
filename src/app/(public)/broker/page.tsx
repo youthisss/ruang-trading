@@ -2,15 +2,14 @@ const brokerPage = () => {
     return (
         // Tambahkan 'relative' agar div background terikat pada main
         <main className="relative min-h-screen flex flex-col">
-            <div className="absolute inset-0 z-[-1] bg-gray-200 lg:bg-[url('/bg-broker.jpg')] bg-cover bg-fixed bg-center brightness-30"></div>
+            <div className="absolute inset-0 z-[-1] bg-[url('/bg-broker.jpg')] bg-cover bg-fixed bg-center brightness-30"></div>
             {/* Gunakan flex-grow agar container ini mengisi sisa ruang vertikal */}
             <div className="container mx-auto px-4 flex flex-col justify-center items-center flex-grow py-20">
                 
                 <div className="text-center mb-8"> {/* Mengurangi mb-12 di mobile */}
                     
                     {/* Judul: Font mobile (3xl) dan underline yang lebih wajar */}
-                    <h1 className="text-3xl font-bold text-white tracking-tight 
-                                 underline decoration-4 decoration-orange-600 
+                    <h1 className="text-3xl font-bold text-white tracking-tight underline decoration-4 decoration-orange-600 
                                  sm:text-4xl lg:text-5xl lg:underline-offset-30"> {/* <<< Styling mobile diutamakan, styling PC (lg:) tetap ada */}
                         Daftar Broker Dupoin Indonesia
                     </h1>
@@ -23,7 +22,7 @@ const brokerPage = () => {
                 </div>
                 
                 {/* Tombol Daftar Sekarang */}
-                <div className="mt-10 flex justify-center">
+                <div className="mt-5 flex justify-center">
                     <a 
                         href='https://i.dupoin.vip/rIwYumck7' 
                         // Wajib full-width di mobile, lalu dibatasi di PC
