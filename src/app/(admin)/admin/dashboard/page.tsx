@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAdminModal } from '@/app/(admin)/admin/context/AdminModalContext' 
 import { 
   Breadcrumb, 
@@ -42,15 +43,21 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [updatingId, setUpdatingId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null); 
+  const router = useRouter();
   async function fetchSubmissions() { 
       setIsLoading(true);
       try {
         const response = await fetch('/api/users')
+        if (response.status === 401) {
+          // Redirect to Admin login page
+          router.push('/admin/login');
+          return;
+        }
         if (!response.ok) throw new Error('Gagal mengambil data')
         const data = await response.json()
-        setSubmissions(data.users)
+        setSubmissions(data.users || [])
       } catch (error) {
-        console.error(error)
+        console.error('Error fetching submissions:', error)
       } finally {
         setIsLoading(false)
       }
