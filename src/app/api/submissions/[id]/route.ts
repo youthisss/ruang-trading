@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
-import { supabase } from '@/app/lib/supabaseClient';
+import { createSupabaseAuthClientForServer } from '@/app/lib/supabaseServer';
 
 // --- Fungsi PATCH (dengan disable ESLint) ---
 export async function PATCH(
@@ -14,6 +14,8 @@ export async function PATCH(
     if (!status || !['Pending', 'Approved', 'Rejected'].includes(status)) {
       return NextResponse.json({ message: 'Status tidak valid' }, { status: 400 });
     }
+
+    const supabase = await createSupabaseAuthClientForServer();
 
     const { data, error } = await supabase
       .from('submissions')
@@ -38,8 +40,7 @@ export async function PATCH(
 // --- Fungsi DELETE (dengan disable ESLint) ---
 export async function DELETE(
   request: NextRequest,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context: any // <<< ESLint diabaikan HANYA untuk baris ini
+  context: any
 ): Promise<NextResponse> {
   try {
     const { id } = context.params;
@@ -47,6 +48,8 @@ export async function DELETE(
     if (!id) {
        return NextResponse.json({ message: 'ID tidak valid' }, { status: 400 });
     }
+
+    const supabase = await createSupabaseAuthClientForServer();
 
     const { error } = await supabase
       .from('submissions')
