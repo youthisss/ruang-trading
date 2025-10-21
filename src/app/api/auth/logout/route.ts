@@ -21,46 +21,45 @@ export async function POST() {
 
     if (error) {
       console.error('Supabase logout error:', error);
-      // Lanjutkan meskipun ada error - tetap hapus cookies
     }
 
-    // Manually delete all Supabase cookies
+    // Get all cookies
     const cookieStore = await cookies();
     const allCookies = cookieStore.getAll();
     
-    console.log('Clearing cookies...');
-    
-    // Delete all auth-related cookies
-    allCookies.forEach(cookie => {
-      if (
-        cookie.name.includes('sb-') || 
-        cookie.name.includes('supabase') || 
-        cookie.name.includes('auth-token')
-      ) {
-        try {
-          cookieStore.delete(cookie.name);
-          console.log(`Deleted cookie: ${cookie.name}`);
-        } catch (e) {
-          console.error(`Failed to delete cookie ${cookie.name}:`, e);
-        }
-      }
-    });
+    console.log('All cookies:', allCookies.map(c => c.name));
 
-    console.log('Logout successful');
-
-    return NextResponse.json(
+    // Create response
+    const response = NextResponse.json(
       { message: 'Logout berhasil', success: true },
       { 
         status: 200,
         headers: {
-          // Prevent caching
           'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
           'Pragma': 'no-cache',
           'Expires': '0',
-          'Surrogate-Control': 'no-store',
         }
       }
     );
+
+    // Delete cookies using Set-Cookie headers
+    allCookies.forEach(cookie => {
+      // Set cookie with expired date to delete it
+      response.cookies.set({
+        name: cookie.name,
+        value: '',
+        maxAge: -1,
+        expires: new Date(0),
+        path: '/',
+        sameSite: 'lax',
+      });
+      
+      console.log(`Set-Cookie header added for: ${cookie.name}`);
+    });
+
+    console.log('Logout successful - cookies deletion headers set');
+
+    return response;
 
   } catch (error: unknown) {
     let errorMessage = 'Error tidak diketahui';

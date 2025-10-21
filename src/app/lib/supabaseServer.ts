@@ -5,13 +5,11 @@ export async function createSupabaseClientForServer() {
   const cookieStore = await cookies();
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY; // ← Tanpa NEXT_PUBLIC_!
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
     console.error("Supabase URL or Service Role Key was not found in env.");
-    console.error("NEXT_PUBLIC_SUPABASE_URL:", supabaseUrl ? "SET" : "MISSING");
-    console.error("SUPABASE_SERVICE_ROLE_KEY:", supabaseServiceRoleKey ? "SET" : "MISSING");
-    throw new Error("Konfigurasi Supabase tidak lengkap. Cek variabel lingkungan NEXT_PUBLIC_SUPABASE_URL dan SUPABASE_SERVICE_ROLE_KEY.");
+    throw new Error("Konfigurasi Supabase tidak lengkap.");
   }
 
   return createServerClient(
@@ -49,10 +47,8 @@ export async function createSupabaseAuthClientForServer() {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    console.error("Supabase URL atau Anon Key tidak ditemukan di environment variables untuk auth.");
-    console.error("NEXT_PUBLIC_SUPABASE_URL:", supabaseUrl ? "SET" : "MISSING");
-    console.error("NEXT_PUBLIC_SUPABASE_ANON_KEY:", supabaseAnonKey ? "SET" : "MISSING");
-    throw new Error("Konfigurasi Supabase untuk auth tidak lengkap. Cek NEXT_PUBLIC_SUPABASE_URL dan NEXT_PUBLIC_SUPABASE_ANON_KEY.");
+    console.error("Supabase URL atau Anon Key tidak ditemukan.");
+    throw new Error("Konfigurasi Supabase untuk auth tidak lengkap.");
   }
 
   return createServerClient(
