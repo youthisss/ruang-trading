@@ -4,16 +4,26 @@ import { createSupabaseClientForServer } from '@/app/lib/supabaseServer';
 // GET - Fetch all submissions
 export async function GET() {
   try {
+    console.log('=== API /api/submissions GET called ===');
+    console.log('Environment check:', {
+      hasSupabaseUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+      hasServiceKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+    });
+
     const supabase = await createSupabaseClientForServer();
     
     if (!supabase) {
+      console.error('Failed to create Supabase client');
       return NextResponse.json(
         { message: 'Gagal membuat koneksi ke database' },
         { status: 500 }
       );
     }
 
+    console.log('Supabase client created successfully');
+
     // Fetch data dari table submissions
+    console.log('Querying submissions table...');
     const { data, error } = await supabase
       .from('submissions')
       .select('*')
@@ -24,6 +34,8 @@ export async function GET() {
       throw error;
     }
 
+    console.log('Query successful, rows:', data?.length || 0);
+
     return NextResponse.json({ 
       users: data || [], // Gunakan 'users' karena dashboard expect data.users
       success: true 
@@ -31,12 +43,28 @@ export async function GET() {
 
   } catch (error: unknown) {
     let errorMessage = 'Error tidak diketahui';
+    let errorDetails = {};
+    
     if (error instanceof Error) {
       errorMessage = error.message;
+      errorDetails = {
+        name: error.name,
+        message: error.message,
+        stack: error.stack?.substring(0, 500), // Limit stack trace
+      };
     }
-    console.error('API GET Error:', error);
+    
+    console.error('=== API GET Error ===');
+    console.error('Error message:', errorMessage);
+    console.error('Error details:', errorDetails);
+    console.error('Full error:', error);
+    
     return NextResponse.json(
-      { message: 'Gagal mengambil data submissions', error: errorMessage },
+      { 
+        message: 'Gagal mengambil data submissions', 
+        error: errorMessage,
+        details: errorDetails 
+      },
       { status: 500 }
     );
   }
