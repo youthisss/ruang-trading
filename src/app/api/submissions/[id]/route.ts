@@ -34,8 +34,12 @@ export async function PATCH(
     return NextResponse.json({ message: "Status berhasil diperbarui!", data: data[0] }, { status: 200 });
 
   } catch (error: unknown) {
-    let errorMessage = 'Error tidak diketahui';
-    if (error instanceof Error) { errorMessage = error.message; }
+    let errorMessage = "Error tidak diketahui."
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
+    }
     console.error("API PATCH Error:", error);
     return NextResponse.json({ message: 'Gagal memperbarui status', error: errorMessage }, { status: 500 });
   }
@@ -68,8 +72,12 @@ export async function DELETE(
     return new NextResponse(null, { status: 204 });
 
   } catch (error: unknown) {
-    let errorMessage = 'Error tidak diketahui';
-    if (error instanceof Error) { errorMessage = error.message; }
+    let errorMessage = "Error tidak diketahui."
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
+    } 
     console.error("API DELETE Error:", error);
     return NextResponse.json({ message: 'Gagal menghapus data', error: errorMessage }, { status: 500 });
   }

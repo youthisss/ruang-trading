@@ -35,11 +35,13 @@ export async function POST(request: Request) {
     );
 
   } catch (error: unknown) {
-    let errorMessage = 'Error tidak diketahui';
+    let errorMessage = "Error tidak diketahui."
     if (error instanceof Error) {
       errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
     }
-    console.error("API POST /api/auth/login Error:", error);
+    console.error("API POST /api/auth/login Error:", errorMessage);
     return NextResponse.json(
       { message: 'Terjadi kesalahan pada server', error: errorMessage },
       { status: 500 }

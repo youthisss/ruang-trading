@@ -1,5 +1,5 @@
 import type * as React from "react"
-import { Home, LogOut } from "lucide-react"
+import { Home } from "lucide-react"
 
 import {
   Sidebar,
@@ -23,13 +23,13 @@ const data = {
       isActive: true,
     },
   ],
-  secondary: [
-    {
-      title: "Logout",
-      url: "/logout",
-      icon: LogOut,
-    },
-  ],
+  // secondary: [
+  //   {
+  //     title: "Logout",
+  //     url: "/logout",
+  //     icon: LogOut,
+  //   },
+  // ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -61,7 +61,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter>
+      {/* <SidebarFooter>
         <SidebarMenu>
           {data.secondary.map((item) => (
             <SidebarMenuItem key={item.title}>
@@ -74,7 +74,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
-      </SidebarFooter>
+      </SidebarFooter> */}
       <SidebarRail />
     </Sidebar>
   )

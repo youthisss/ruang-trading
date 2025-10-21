@@ -1,34 +1,48 @@
-// src/app/admin/components/LogoutButton.tsx
+// src/app/(admin)/admin/components/LogoutButton.tsx
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { Button } from './button';
+import { useState } from 'react';
 
-export default function LogoutButton() {
+export function LogoutButton() {
   const router = useRouter();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
+    if (isLoggingOut) return; // Cegah klik ganda saat logout sedang berlangsung
+    setIsLoggingOut(true);
+
     try {
       const response = await fetch('/api/auth/logout', {
         method: 'POST',
       });
 
       if (response.ok) {
-        // Redirect to login page
+        // Redirect ke halaman login setelah logout
         router.push('/admin/login');
+        router.refresh(); // Opsional: Segarkan router agar state client bersih
+      } else {
+        // Jika logout gagal, tampilkan error atau tetap di halaman
+        console.error('Logout failed, status:', response.status);
+        alert('Logout gagal. Silakan coba lagi.');
+        setIsLoggingOut(false); // Izinkan percobaan logout lagi
       }
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error('Logout error:', error);
+      alert('Terjadi kesalahan saat logout. Silakan coba lagi.');
+      setIsLoggingOut(false); // Izinkan percobaan logout lagi
     }
   };
 
   return (
-    <button
+    <Button
+      variant="destructive" // Gunakan variant sesuai kebutuhan Anda
+      size="default"            // Gunakan size sesuai kebutuhan Anda
       onClick={handleLogout}
-      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      disabled={isLoggingOut} // Nonaktifkan tombol saat logout berlangsung
     >
-      Logout
-    </button>
+      {isLoggingOut ? 'Logging out...' : 'Logout'}
+    </Button>
   );
 }
-
-export { LogoutButton }
