@@ -1,14 +1,16 @@
-// src/app/admin/components/LogoutButton.tsx
+// src/app/(admin)/admin/components/LogoutButton.tsx
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { Button } from './button';
 import { useState } from 'react';
 
-export default function LogoutButton() {
+export function LogoutButton() {
+  const router = useRouter();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
-    if (isLoggingOut) return;
-    
+    if (isLoggingOut) return; // Cegah klik ganda saat logout sedang berlangsung
     setIsLoggingOut(true);
 
     try {
@@ -20,47 +22,30 @@ export default function LogoutButton() {
       });
 
       if (response.ok) {
-        console.log('Logout successful, clearing cache...');
-        
-        // Clear all browser cache
-        if ('caches' in window) {
-          caches.keys().then((names) => {
-            names.forEach((name) => {
-              caches.delete(name);
-            });
-          });
-        }
-
-        // Clear sessionStorage and localStorage (optional)
-        sessionStorage.clear();
-        
-        // Use replace instead of push to prevent back button
-        // This removes current page from history
-        window.location.replace('/login');
+        // Redirect ke halaman login setelah logout
+        router.push('/admin/login');
+        router.refresh(); // Opsional: Segarkan router agar state client bersih
       } else {
-        console.error('Logout API failed');
-        // Still redirect even if API fails
-        window.location.replace('/login');
+        // Jika logout gagal, tampilkan error atau tetap di halaman
+        console.error('Logout failed, status:', response.status);
+        alert('Logout gagal. Silakan coba lagi.');
+        setIsLoggingOut(false); // Izinkan percobaan logout lagi
       }
     } catch (error) {
-      console.error('Logout failed:', error);
-      // Force redirect even on error
-      window.location.replace('/login');
-    } finally {
-      // Note: This might not execute if window.location.replace happens first
-      setIsLoggingOut(false);
+      console.error('Logout error:', error);
+      alert('Terjadi kesalahan saat logout. Silakan coba lagi.');
+      setIsLoggingOut(false); // Izinkan percobaan logout lagi
     }
   };
 
   return (
-    <button
+    <Button
+      variant="destructive" // Gunakan variant sesuai kebutuhan Anda
+      size="default"            // Gunakan size sesuai kebutuhan Anda
       onClick={handleLogout}
-      disabled={isLoggingOut}
-      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+      disabled={isLoggingOut} // Nonaktifkan tombol saat logout berlangsung
     >
       {isLoggingOut ? 'Logging out...' : 'Logout'}
-    </button>
+    </Button>
   );
 }
-
-export { LogoutButton };

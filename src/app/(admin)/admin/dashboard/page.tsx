@@ -18,6 +18,7 @@ import {
   CardTitle 
 } from "@/app/(admin)/admin/components/ui/card"
 import { Button } from '@/app/(admin)/admin/components/ui/button'
+import { LogoutButton } from '@/app/(admin)/admin/components/ui/logoutButton'
 import { 
   Table, 
   TableBody, 
@@ -173,8 +174,9 @@ export default function DashboardPage() {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <div>
+        <div className='flex items-center gap-2'>
           <Button onClick={handleAddNew}>+ Add New</Button>
+          <LogoutButton />
         </div>
       </header>
 

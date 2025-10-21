@@ -32,9 +32,16 @@ export default function LoginPage() {
       // Jika login berhasil, redirect ke dashboard
       router.push('/admin/dashboard');
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      let errorMessage = 'An unexpected error occurred.';
+
+      if (err instanceof Error) {
+        errorMessage = err.message;
+      } else if (typeof err === 'string') {
+        errorMessage = err;
+      }
+  
+      setError(errorMessage);
     }
   };
 
