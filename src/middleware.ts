@@ -49,6 +49,12 @@ export async function middleware(request: NextRequest) {
   // Check authentication
   const { data: { user }, error } = await supabase.auth.getUser();
 
+  console.log('=== Middleware Auth Check ===');
+  console.log('Path:', pathname);
+  console.log('Has user:', !!user);
+  console.log('Has error:', !!error);
+  console.log('User email:', user?.email || 'none');
+
   if (error || !user) {
     console.log(`Unauthorized access attempt to: ${pathname}`);
     
@@ -70,7 +76,16 @@ export async function middleware(request: NextRequest) {
   }
 
   // User is authenticated, allow access
-  return NextResponse.next();
+  const response = NextResponse.next();
+  
+  // Add headers to prevent caching of protected pages
+  if (isProtectedPage) {
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+  }
+  
+  return response;
 }
 
 // Define the paths that should be protected by this middleware
@@ -78,6 +93,6 @@ export const config = {
   matcher: [
     '/api/users/:path*',
     '/api/submissions/:path*',
-    '/admin/:path*',  // ✅ Added admin pages protection
+    '/admin/:path*',
   ],
 };

@@ -14,8 +14,11 @@ export function LogoutButton() {
     setIsLoggingOut(true);
 
     try {
+      console.log('Logging out...');
+      
       const response = await fetch('/api/auth/logout', {
         method: 'POST',
+        credentials: 'include', // Important for cookies
       });
 
       if (response.ok) {
