@@ -32,15 +32,13 @@ export async function POST(request: Request) {
         { status: 409 } // Status 409 Conflict
       );
     }
-    // --- END: Pemeriksaan Email Duplikat ---
 
 
     // Jika email belum ada, lanjutkan proses penyimpanan
     const { data, error: insertError } = await supabase
       .from('submissions')
       .insert([
-        { 
-          // Pastikan nama kolom di sini (kiri) cocok dengan nama kolom di DB Anda
+        {
           name: nama,       
           email: email, 
           whatsapp: whatsapp, 
@@ -66,7 +64,7 @@ export async function POST(request: Request) {
     if (error instanceof Error) {
       errorMessage = error.message;
     }
-    console.error("API POST /api/join Error:", error); // Log error asli
+    console.error("API POST /api/join Error:", error);
     return NextResponse.json(
       // Pesan error umum jika terjadi kesalahan tak terduga
       { message: 'Terjadi kesalahan pada server', error: errorMessage },
