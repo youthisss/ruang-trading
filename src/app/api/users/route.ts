@@ -15,14 +15,16 @@ export async function GET(request: Request) {
     return NextResponse.json({ users: users }, { status: 200 }); 
 
   } catch (error: unknown) {
-    let errorMessage = 'Unknown error';
+    let errorMessage = "Error tidak diketahui."
     if (error instanceof Error) {
       errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
     }
     console.error("Error fetching users:", error);
-    return NextResponse.json(
+    return NextResponse.json( 
       { message: 'Failed to fetch users', error: errorMessage },
       { status: 500 }
     );
   }
-}
+} 

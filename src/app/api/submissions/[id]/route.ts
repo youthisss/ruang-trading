@@ -1,15 +1,18 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createSupabaseClientForServer } from '@/app/lib/supabaseServer';
 
+type Params = {
+  id: string;
+};
+
 // --- Fungsi PATCH (dengan disable ESLint) ---
 export async function PATCH(
   request: NextRequest,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context: any // <<< ESLint diabaikan HANYA untuk baris ini
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any 
+  { params }: { params: Promise<Params> } // <<< ESLint diabaikan HANYA untuk baris ini
 ): Promise<NextResponse> {
   try {
-    // 'await' TIDAK dihapus sesuai instruksi
-    const { id } = await context.params; 
+    const { id } = await params; 
     const { status } = await request.json();
 
     if (!status || !['Pending', 'Approved', 'Rejected'].includes(status)) {
@@ -31,8 +34,12 @@ export async function PATCH(
     return NextResponse.json({ message: "Status berhasil diperbarui!", data: data[0] }, { status: 200 });
 
   } catch (error: unknown) {
-    let errorMessage = 'Error tidak diketahui';
-    if (error instanceof Error) { errorMessage = error.message; }
+    let errorMessage = "Error tidak diketahui."
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
+    }
     console.error("API PATCH Error:", error);
     return NextResponse.json({ message: 'Gagal memperbarui status', error: errorMessage }, { status: 500 });
   }
@@ -41,13 +48,10 @@ export async function PATCH(
 // --- Fungsi DELETE (dengan disable ESLint) ---
 export async function DELETE(
   request: NextRequest,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  context: any // <<< ESLint diabaikan HANYA untuk baris ini
+  { params }: { params: Promise<Params> }
 ): Promise<NextResponse> {
   try {
-    // 'await' TIDAK dihapus dari context.params jika memang ada
-    // (di kode Anda sebelumnya tidak ada await di sini, jadi saya biarkan)
-    const { id } = context.params; 
+    const { id } = await params;
 
     if (!id) {
        return NextResponse.json({ message: 'ID tidak valid' }, { status: 400 });
@@ -68,8 +72,12 @@ export async function DELETE(
     return new NextResponse(null, { status: 204 });
 
   } catch (error: unknown) {
-    let errorMessage = 'Error tidak diketahui';
-    if (error instanceof Error) { errorMessage = error.message; }
+    let errorMessage = "Error tidak diketahui."
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === 'string') {
+      errorMessage = error;
+    } 
     console.error("API DELETE Error:", error);
     return NextResponse.json({ message: 'Gagal menghapus data', error: errorMessage }, { status: 500 });
   }

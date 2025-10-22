@@ -24,15 +24,27 @@ export async function createSupabaseClientForServer() {
         set: async (name: string, value: string, options: CookieOptions) => {
           try {
             await cookieStore.set({ name, value, ...options });
-          } catch (error) {
-            console.error(error instanceof Error ? error.message : 'Failed to set cookie');
+          } catch (error: unknown) {
+            let errorMessage = "Error tidak diketahui."
+            if (error instanceof Error) {
+            errorMessage = error.message;
+          } else if (typeof error === 'string') {
+            errorMessage = error;
+          }
+            console.error(errorMessage)
           }
         },
         remove: async (name: string, options: CookieOptions) => {
           try {
             await cookieStore.set({ name, value: '', ...options });
-          } catch (error) {
-            console.error(error instanceof Error ? error.message : 'Failed to remove cookie');
+          } catch (error: unknown) {
+            let errorMessage = "Error tidak diketahui."
+            if (error instanceof Error) {
+            errorMessage = error.message;
+          } else if (typeof error === 'string') {
+            errorMessage = error;
+          }
+            console.error(errorMessage)
           }
         },
       },
@@ -63,15 +75,27 @@ export async function createSupabaseAuthClientForServer() {
         set: async (name: string, value: string, options: CookieOptions) => {
           try {
             await cookieStore.set({ name, value, ...options });
-          } catch (error) {
-            console.error(error instanceof Error ? error.message : 'Failed to set cookie');
+          } catch (error: unknown) {
+            let errorMessage = "Error tidak diketahui."
+            if (error instanceof Error) {
+            errorMessage = error.message;
+          } else if (typeof error === 'string') {
+            errorMessage = error;
+          }
+            console.error(errorMessage)
           }
         },
         remove: async (name: string, options: CookieOptions) => {
           try {
             await cookieStore.set({ name, value: '', ...options });
-          } catch (error) {
-            console.error(error instanceof Error ? error.message : 'Failed to remove cookie');
+          } catch (error: unknown) {
+            let errorMessage = "Error tidak diketahui."
+            if (error instanceof Error) {
+            errorMessage = error.message;
+          } else if (typeof error === 'string') {
+            errorMessage = error;
+          }
+            console.error(errorMessage)
           }
         },
       },
