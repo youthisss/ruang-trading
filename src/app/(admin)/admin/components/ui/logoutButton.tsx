@@ -20,7 +20,19 @@ export default function LogoutButton() {
       });
 
       if (response.ok) {
-        console.log('Logout successful, clearing cache...');
+        console.log('Logout successful, clearing cache and cookies...');
+        
+        // Clear all cookies from client-side
+        document.cookie.split(';').forEach((c) => {
+          const name = c.split('=')[0].trim();
+          // Delete for current domain
+          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+          // Also try with domain
+          const domain = window.location.hostname;
+          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${domain}`;
+          document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${domain}`;
+          console.log(`Deleted cookie from client: ${name}`);
+        });
         
         // Clear all browser cache
         if ('caches' in window) {
